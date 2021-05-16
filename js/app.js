@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-dupe-else-if */
 /* eslint-disable new-cap */
 'use strict';
@@ -130,3 +131,28 @@ function clickOnImg(event) {
       });
   }
 }
+
+
+
+//
+//Get the button
+// eslint-disable-next-line no-var
+var buttonToTop = document.getElementById('myBtnToTop');
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunctionToTop();};
+
+function scrollFunctionToTop() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    buttonToTop.style.display = 'block';
+  } else {
+    buttonToTop.style.display = 'none';
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function scrollTopFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+//
