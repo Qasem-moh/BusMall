@@ -1,8 +1,9 @@
+/* eslint-disable no-dupe-else-if */
 /* eslint-disable new-cap */
-/* eslint-disable quotes */
-/* eslint-disable no-unused-vars */
 "use strict";
-// eslint-disable-next-line no-unused-vars
+let attempts = 0;
+let maxAttempts = 25;
+let attemptsEl = document.getElementById("attempts");
 //create empty array
 let imagesCon = [];
 // eslint-disable-next-line no-unused-vars
@@ -66,8 +67,66 @@ function renderRimg() {
   lImgR = getRanImg();
   mImgR = getRanImg();
   rImgR = getRanImg();
-//  while(lImg===mImg)
-//   console.log(lImgR +" "+ mImgR+" "+rImgR);
+  while (lImgR === mImgR || lImgR === rImgR) {
+    lImgR = getRanImg();
+  }
+  while (mImgR === rImgR || mImgR === lImgR) {
+    mImgR = getRanImg();
+  }
+  while (rImgR === mImgR || rImgR === lImgR) {
+    rImgR = getRanImg();
+  }
+  console.log(lImgR + " " + mImgR + " " + rImgR);
+  lImg.setAttribute("src", imagesCon[lImgR].sourceImg);
+  lImg.setAttribute("title", imagesCon[lImgR].sourceImg);
+  imagesCon[lImgR].viewsImg++;
+
+  mImg.setAttribute("src", imagesCon[mImgR].sourceImg);
+  mImg.setAttribute("title", imagesCon[mImgR].sourceImg);
+  imagesCon[mImgR].viewsImg++;
+
+  rImg.setAttribute("src", imagesCon[rImgR].sourceImg);
+  rImg.setAttribute("title", imagesCon[rImgR].sourceImg);
+  imagesCon[rImgR].viewsImg++;
+  attemptsEl.textContent = attempts;
 }
 // calling function
 renderRimg();
+
+lImg.addEventListener("click", clickOnImg);
+mImg.addEventListener("click", clickOnImg);
+rImg.addEventListener("click", clickOnImg);
+
+function clickOnImg(event) {
+  // eslint-disable-next-line no-unused-vars
+  attempts++;
+  if (attempts < maxAttempts) {
+    console.log(event.target.id);
+    // eslint-disable-next-line no-empty
+    if (event.target.id === "leftImg") {
+      imagesCon[lImgR].clicksImg++;
+      // eslint-disable-next-line no-empty
+    } else if (event.target.id === "middleImg") {
+      imagesCon[lImgR].clicksImg++;
+    } else if (event.target.id === "rightImg") {
+      imagesCon[lImgR].clicksImg++;
+    }
+    renderRimg();
+    // eslint-disable-next-line no-empty
+  } else {
+    document
+      .getElementById("ViewResults")
+      .addEventListener("click", function () {
+        let resdat = document.getElementById("resdat");
+        let craeteLiEl;
+        for (let index = 0; index < imagesCon.length; index++) {
+          craeteLiEl = document.createElement("li");
+          resdat.appendChild(craeteLiEl);
+          craeteLiEl.textContent = `${imagesCon[index].ImgSource} had ${imagesCon[index].viewsImg} votes, and was seen ${imagesCon[index].clicksImg} times.`;
+        }
+        lImg.removeEventListener("click", clickOnImg);
+        mImg.removeEventListener("click", clickOnImg);
+        rImg.removeEventListener("click", clickOnImg);
+      });
+  }
+}

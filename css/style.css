@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  justify-content: center;
+  justify-self: unset;
+  justify-items: center;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  margin: 25px;
+  border: 1px solid;
+}
