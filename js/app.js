@@ -7,14 +7,19 @@ let maxAttempts = 25;
 let attemptsEl = document.getElementById('attempts');
 //create empty array
 let imagesCon = [];
+//getting name just to use in chart
+let imgJustName=[];
+let gettingClicksImg=[];
+let gettingViewsImg=[];
 // eslint-disable-next-line no-unused-vars
-function productImag(ImgSource) {
+function ProductImag(ImgSource) {
   this.ImgSource = ImgSource.split('.')[0];
   this.sourceImg = 'assets/' + ImgSource;
   this.clicksImg = 0;
   this.viewsImg = 0;
   //pushing constructor to array
   imagesCon.push(this);
+  imgJustName.push(this.ImgSource);
 }
 // create array for image to random it
 let assetsImage = [
@@ -40,10 +45,11 @@ let assetsImage = [
 ];
 // consoling data array
 console.log(imagesCon);
+console.log(imgJustName);
 
 // create constructor from array img assetsImage array
 for (let index = 0; index < assetsImage.length; index++) {
-  new productImag(assetsImage[index]);
+  new ProductImag(assetsImage[index]);
 }
 
 // create random number
@@ -124,23 +130,66 @@ function clickOnImg(event) {
           craeteLiEl = document.createElement('li');
           resdat.appendChild(craeteLiEl);
           craeteLiEl.textContent = `${imagesCon[index].ImgSource} had ${imagesCon[index].viewsImg} votes, and was seen ${imagesCon[index].clicksImg} times.`;
+          gettingClicksImg.push(imagesCon[index].clicksImg);
+          gettingViewsImg.push(imagesCon[index].viewsImg);
         }
         lImg.removeEventListener('click', clickOnImg);
         mImg.removeEventListener('click', clickOnImg);
         rImg.removeEventListener('click', clickOnImg);
+        renderChart();
       });
   }
 }
 
-
-
-//
+let drawChart = document.getElementById('myChart').getContext('2d');
+function renderChart() {
+  // eslint-disable-next-line no-undef
+  let myChart = new Chart(drawChart, {
+    type: 'bar',
+    data: {
+      labels:imgJustName,
+      datasets: [
+        {
+          label: '# of clicks',
+          data:gettingClicksImg,
+          backgroundColor: [
+            'rgba(255, 0, 0, 0)',
+          ],
+          borderColor: [
+            'rgba(255, 0, 0, 1)',
+          ],
+          borderWidth: 1,
+        },
+        {
+          label: '# of views',
+          data: gettingViewsImg,
+          backgroundColor: [
+            'rgba(153, 102, 255, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 206, 86, 1)',
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
 //Get the button
 // eslint-disable-next-line no-var
 var buttonToTop = document.getElementById('myBtnToTop');
 
 // When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunctionToTop();};
+window.onscroll = function () {
+  scrollFunctionToTop();
+};
 
 function scrollFunctionToTop() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -156,3 +205,4 @@ function scrollTopFunction() {
   document.documentElement.scrollTop = 0;
 }
 //
+// renderChart();
