@@ -153,7 +153,7 @@ function renderChart() {
           label: '# of clicks',
           data:gettingClicksImg,
           backgroundColor: [
-            'rgba(255, 0, 0, 0)',
+            'rgba(255, 100, 100, 0.6)',
           ],
           borderColor: [
             'rgba(255, 0, 0, 1)',
@@ -164,7 +164,7 @@ function renderChart() {
           label: '# of views',
           data: gettingViewsImg,
           backgroundColor: [
-            'rgba(153, 102, 255, 0.2)',
+            'rgba(153, 12, 155, 0.7)',
           ],
           borderColor: [
             'rgba(255, 206, 86, 1)',
