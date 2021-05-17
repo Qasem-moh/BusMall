@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@1,200&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@1,200;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@1,200;1,500&display=swap");
 * {
   box-sizing: border-box;
   justify-content: center;
@@ -13,7 +13,7 @@ span:first-child {
   color: gray;
   font-size: 25px;
   margin-left: 25px;
-  font-family: 'Newsreader', serif;
+  font-family: "Newsreader", serif;
 }
 img {
   width: 550px;
@@ -28,32 +28,33 @@ button {
   font-size: 15px;
   min-height: 35px;
   border-radius: 8px;
-  font-family: 'Newsreader', serif;
+  font-family: "Newsreader", serif;
 }
 ul li {
   list-style: none;
   margin-bottom: 10px;
   font-size: 22px;
-  font-family: 'Newsreader', serif;
+  font-family: "Newsreader", serif;
 }
 
-
 #myBtnToTop {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 30px;
-    z-index: 99;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 4px;
-  }
+  display: none;
+  padding: 15px;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  border: none;
+  outline: none;
+ 
   
-  #myBtnToTop:hover {
-    background-color: #555;
-  }
+}
+
+#myBtnToTop:hover {
+  background-color: #555;
+}
