@@ -24,7 +24,15 @@ function ProductImag(ImgSource) {
   //pushing constructor to array
   imagesCon.push(this);
   imgJustName.push(this.ImgSource);
+  setDataInLocalStorage();
 }
+//create function to set data
+function setDataInLocalStorage() {
+  let result = JSON.stringify(imagesCon);
+  console.log(result);
+  localStorage.setItem("data", result);
+}
+
 // create array for image to random it
 let assetsImage = [
   "bag.jpg",
@@ -108,7 +116,18 @@ function renderRimg() {
   imgSet[2] = rImgR;
 }
 // calling function
-renderRimg();
+// renderRimg();
+
+function renderDataIfNotBull() {
+  let getResult = localStorage.getItem("data");
+  let resulteLocalStorage = JSON.parse(getResult);
+  console.log(resulteLocalStorage);
+  if (resulteLocalStorage !== null) {
+    imagesCon = resulteLocalStorage;
+  }
+  renderRimg();
+}
+renderDataIfNotBull();
 
 lImg.addEventListener("click", clickOnImg);
 mImg.addEventListener("click", clickOnImg);
@@ -208,3 +227,4 @@ function scrollTopFunction() {
 }
 //
 // renderChart();
+renderDataIfNotBull();
