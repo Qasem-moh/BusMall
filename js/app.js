@@ -24,7 +24,6 @@ function ProductImag(ImgSource) {
   //pushing constructor to array
   imagesCon.push(this);
   imgJustName.push(this.ImgSource);
-  setDataInLocalStorage();
 }
 //create function to set data
 function setDataInLocalStorage() {
@@ -56,8 +55,8 @@ let assetsImage = [
   "wine-glass.jpg",
 ];
 // consoling data array
-console.log(imagesCon);
-console.log(imgJustName);
+// console.log(imagesCon);
+// console.log(imgJustName);
 
 // create constructor from array img assetsImage array
 for (let index = 0; index < assetsImage.length; index++) {
@@ -111,6 +110,7 @@ function renderRimg() {
   rImg.setAttribute("title", imagesCon[rImgR].sourceImg);
   imagesCon[rImgR].viewsImg++;
   attemptsEl.textContent = attempts + " " + "of 25";
+  setDataInLocalStorage();
   imgSet[0] = lImgR;
   imgSet[1] = mImgR;
   imgSet[2] = rImgR;
@@ -121,13 +121,12 @@ function renderRimg() {
 function renderDataIfNotBull() {
   let getResult = localStorage.getItem("data");
   let resulteLocalStorage = JSON.parse(getResult);
-  console.log(resulteLocalStorage);
+  // console.log(resulteLocalStorage);
   if (resulteLocalStorage !== null) {
     imagesCon = resulteLocalStorage;
   }
   renderRimg();
 }
-renderDataIfNotBull();
 
 lImg.addEventListener("click", clickOnImg);
 mImg.addEventListener("click", clickOnImg);
@@ -137,7 +136,6 @@ function clickOnImg(event) {
   // eslint-disable-next-line no-unused-vars
   attempts++;
   if (attempts <= maxAttempts) {
-    console.log(event.target.id);
     // eslint-disable-next-line no-empty
     if (event.target.id === "leftImg") {
       imagesCon[lImgR].clicksImg++;
@@ -149,29 +147,32 @@ function clickOnImg(event) {
     }
     renderRimg();
     // eslint-disable-next-line no-empty
-  } else {
-    document
-      .getElementById("ViewResults")
-      .addEventListener("click", function () {
-        let resdat = document.getElementById("resdat");
-        let craeteLiEl;
-        for (let index = 0; index < imagesCon.length; index++) {
-          craeteLiEl = document.createElement("li");
-          resdat.appendChild(craeteLiEl);
-          craeteLiEl.textContent = `${imagesCon[index].ImgSource} had ${imagesCon[index].viewsImg} votes, and was seen ${imagesCon[index].clicksImg} times.`;
-          gettingClicksImg.push(imagesCon[index].clicksImg);
-          gettingViewsImg.push(imagesCon[index].viewsImg);
-        }
-        lImg.removeEventListener("click", clickOnImg);
-        mImg.removeEventListener("click", clickOnImg);
-        rImg.removeEventListener("click", clickOnImg);
-        renderChart();
-      });
   }
 }
 
+function drawData() {
+  document.getElementById("ViewResults").addEventListener("click", function () {
+    let resdat = document.getElementById("resdat");
+    let craeteLiEl;
+    for (let index = 0; index < imagesCon.length; index++) {
+      console.log("*****", imagesCon);
+      craeteLiEl = document.createElement("li");
+      resdat.appendChild(craeteLiEl);
+      craeteLiEl.textContent = `${imagesCon[index].ImgSource} had ${imagesCon[index].viewsImg} votes, and was seen ${imagesCon[index].clicksImg} times.`;
+      gettingClicksImg.push(imagesCon[index].clicksImg);
+      gettingViewsImg.push(imagesCon[index].viewsImg);
+    }
+    lImg.removeEventListener("click", clickOnImg);
+    mImg.removeEventListener("click", clickOnImg);
+    rImg.removeEventListener("click", clickOnImg);
+    setDataInLocalStorage();
+    renderChart();
+  });
+}
+drawData();
 let drawChart = document.getElementById("myChart").getContext("2d");
 function renderChart() {
+  // setDataInLocalStorage();
   // eslint-disable-next-line no-undef
   let myChart = new Chart(drawChart, {
     type: "bar",
